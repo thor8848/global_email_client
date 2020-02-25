@@ -13,12 +13,12 @@ log = Log('send_email.log').get_log()
 
 
 def get_email_mission():
-    response = requests.get('http://139.196.96.86:5004/email/', timeout=2)
+    response = requests.get('http://172.19.203.217:5004/email/', timeout=2)
     return response.json()
 
 
 def get_global_account():
-    response = requests.get('http://139.196.96.86:5004/account/')
+    response = requests.get('http://172.19.203.217:5004/account/')
     return response.json()
 
 
