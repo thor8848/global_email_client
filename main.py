@@ -3,7 +3,8 @@ from smtplib import SMTP_SSL, SMTPAuthenticationError
 from mylib.code_logging import Logger as Log
 from requests.exceptions import RequestException
 from email.mime.text import MIMEText
-from mylib.tools import *
+from mylib.tools import encode_header
+from email.header import Header
 import requests
 import time
 import uuid
@@ -44,6 +45,7 @@ def send_mail_mission():
     message['From'] = encode_header(mission_data['from'], username)
     message['To'] = encode_header(mission_data['to'], '')
     message['Message-ID'] = uuid.uuid4().__str__()
+    message['Subject'] = Header(mission_data['subject'], 'utf-8')
     message['MIME-Version'] = '1.0'
     server.sendmail(username, mission_data['receivers'], message.as_string())
     log.debug(f'SEND SUCCESS EMAIL')
