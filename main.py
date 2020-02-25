@@ -2,8 +2,11 @@
 from smtplib import SMTP_SSL, SMTPAuthenticationError
 from mylib.code_logging import Logger as Log
 from requests.exceptions import RequestException
+from email.mime.text import MIMEText
+from mylib.tools import *
 import requests
 import time
+import uuid
 
 log = Log('send_email.log').get_log()
 
@@ -35,7 +38,14 @@ def send_mail_mission():
         except SMTPAuthenticationError:
             log.warning(f'ACCOUNT FAILED {username}{password}')
             continue
-    server.sendmail(username, mission_data['receivers'], mission_data['message'])
+    message = MIMEText(mission_data['message'], _subtype='html', _charset='utf-8')
+    message['Accept-Language'] = "zh-CN"
+    message['Accept-Charset'] = "ISO-8859-1,UTF-8"
+    message['From'] = encode_header(mission_data['from'], username)
+    message['To'] = encode_header(mission_data['to'], '')
+    message['Message-ID'] = uuid.uuid4().__str__()
+    message['MIME-Version'] = '1.0'
+    server.sendmail(username, mission_data['receivers'], message.as_string())
     log.debug(f'SEND SUCCESS EMAIL')
 
 
