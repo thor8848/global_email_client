@@ -13,12 +13,12 @@ log = Log('send_email.log').get_log()
 
 
 def get_email_mission():
-    response = requests.get('http://172.19.203.217:5004/email/', timeout=2)
+    response = requests.get('http://139.196.96.86:5004/email/', timeout=2)
     return response.json()
 
 
 def get_global_account():
-    response = requests.get('http://172.19.203.217:5004/account/')
+    response = requests.get('http://139.196.96.86:5004/account/')
     return response.json()
 
 
@@ -32,7 +32,7 @@ def send_mail_mission():
             smtp_host = 'smtp.global-mail.cn'
             log.warning(f'ACCOUNT LOGIN TRY {username}{password}')
             server = SMTP_SSL(smtp_host)
-            server.set_debuglevel(1)
+            # server.set_debuglevel(1)
             server.ehlo(smtp_host)
             server.login(username, password)
             break
