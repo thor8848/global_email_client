@@ -25,19 +25,19 @@ def get_global_account():
 def send_mail_mission():
     mission_data = get_email_mission()
     while True:
+        account_data = get_global_account()
+        username = account_data['username']
+        password = account_data['password']
         try:
-            account_data = get_global_account()
-            username = account_data['username']
-            password = account_data['password']
             smtp_host = 'smtp.global-mail.cn'
-            log.warning(f'ACCOUNT LOGIN TRY {username}{password}')
+            log.warning('ACCOUNT LOGIN TRY {} {}'.format(username, password))
             server = SMTP_SSL(smtp_host)
             # server.set_debuglevel(1)
             server.ehlo(smtp_host)
             server.login(username, password)
             break
         except SMTPAuthenticationError:
-            log.warning(f'ACCOUNT FAILED {username}{password}')
+            log.warning('ACCOUNT FAILED {}{}'.format(username, password))
             continue
     message = MIMEText(mission_data['message'], _subtype='html', _charset='utf-8')
     message['Accept-Language'] = "zh-CN"
