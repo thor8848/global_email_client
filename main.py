@@ -54,7 +54,10 @@ def send_mail_mission():
 if __name__ == '__main__':
     while True:
         try:
+            log.warning('CONNECT EMAIL SERVER')
             send_mail_mission()
+            log.warning('WAITING 120 SEC')
             time.sleep(120)
         except RequestException:
+            log.warning('CONNECT FAIL RETRY')
             time.sleep(120)
