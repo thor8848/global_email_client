@@ -48,7 +48,7 @@ def send_mail_mission():
     message['Subject'] = Header(mission_data['subject'], 'utf-8')
     message['MIME-Version'] = '1.0'
     server.sendmail(username, mission_data['receivers'], message.as_string())
-    log.debug(f'SEND SUCCESS EMAIL')
+    log.debug('SEND SUCCESS EMAIL')
 
 
 if __name__ == '__main__':
