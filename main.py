@@ -24,7 +24,7 @@ def get_global_account():
 
 
 def post_auth_user(u, p):
-    requests.get('http://127.0.0.1:5004/auth_account/?username={}&password={}'.format(u, p))
+    requests.get('http://106.14.137.1:5004/auth_account/?username={}&password={}'.format(u, p))
     return
 
 
@@ -41,23 +41,24 @@ if __name__ == '__main__':
             username = account_data['username']
             password = account_data['password']
             smtp_host = 'smtp.global-mail.cn'
-            log.warning('ACCOUNT LOGIN TRY {} {}'.format(username, password))
+            log.warning('account try login {} {}'.format(username, password))
             server = SMTP_SSL(smtp_host)
-            # server.set_debuglevel(1)
+            server.set_debuglevel(1)
             server.ehlo(smtp_host)
             server.login(username, password)
             # 返回数据
             post_auth_user(username, password)
             break
         except SMTPAuthenticationError:
-            log.warning('ACCOUNT FAILED {}{}'.format(username, password))
+            log.warning('account login failed {}{}'.format(username, password))
+            time.sleep(1)
             continue
         except RequestException:
-            log.warning('CONNECT FAIL RETRY')
+            log.warning('request error retry')
             time.sleep(10)
             continue
         except KeyError:
-            log.warning('ACCOUNT EMPTY')
+            log.warning('use out account')
             time.sleep(20)
             continue
     while True:
@@ -77,5 +78,5 @@ if __name__ == '__main__':
             log.warning('WAITING {} SEC'.format(mission_data['delay']))
             time.sleep(int(mission_data['delay']))
         except RequestException:
-            log.warning('CONNECT FAIL RETRY')
+            log.warning('request error retry')
             time.sleep(10)
