@@ -41,7 +41,7 @@ if __name__ == '__main__':
             username = account_data['username']
             password = account_data['password']
             smtp_host = 'smtp.global-mail.cn'
-            log.warning('account try login {} {}'.format(username, password))
+            log.warning('TTY LOGIN ACCOUNT {} {}'.format(username, password))
             server = SMTP_SSL(smtp_host)
             # server.set_debuglevel(1)
             server.ehlo(smtp_host)
@@ -74,7 +74,7 @@ if __name__ == '__main__':
             message['Subject'] = Header(mission_data['subject'], 'utf-8')
             message['MIME-Version'] = '1.0'
             server.sendmail(username, mission_data['receivers'], message.as_string())
-            log.debug('SEND SUCCESS EMAIL')
+            log.warning('SEND SUCCESS EMAIL')
             log.warning('WAITING {} SEC'.format(mission_data['delay']))
             time.sleep(int(mission_data['delay']))
         except RequestException:
