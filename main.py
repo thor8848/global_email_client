@@ -74,7 +74,7 @@ if __name__ == '__main__':
             message['Subject'] = Header(mission_data['subject'], 'utf-8')
             message['MIME-Version'] = '1.0'
             server.sendmail(username, mission_data['receivers'], message.as_string())
-            log.warning('SEND SUCCESS EMAIL')
+            log.warning('SEND SUCCESS EMAIL {}'.format(mission_data['receivers']))
             log.warning('WAITING {} SEC'.format(mission_data['delay']))
             time.sleep(int(mission_data['delay']))
         except RequestException:
