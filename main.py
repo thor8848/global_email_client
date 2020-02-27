@@ -43,22 +43,22 @@ if __name__ == '__main__':
             smtp_host = 'smtp.global-mail.cn'
             log.warning('account try login {} {}'.format(username, password))
             server = SMTP_SSL(smtp_host)
-            server.set_debuglevel(1)
+            # server.set_debuglevel(1)
             server.ehlo(smtp_host)
             server.login(username, password)
             # 返回数据
             post_auth_user(username, password)
             break
         except SMTPAuthenticationError:
-            log.warning('account login failed {}{}'.format(username, password))
+            log.warning('ACCOUNT LOGIN FAILED {}{}'.format(username, password))
             time.sleep(1)
             continue
         except RequestException:
-            log.warning('request error retry')
+            log.warning('REQUEST FAILED RETRY')
             time.sleep(10)
             continue
         except KeyError:
-            log.warning('use out account')
+            log.warning('USE OUT OF ACCOUNT')
             time.sleep(20)
             continue
     while True:
@@ -78,5 +78,5 @@ if __name__ == '__main__':
             log.warning('WAITING {} SEC'.format(mission_data['delay']))
             time.sleep(int(mission_data['delay']))
         except RequestException:
-            log.warning('request error retry')
+            log.warning('REQUEST FAILED RETRY')
             time.sleep(10)
