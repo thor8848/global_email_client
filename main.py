@@ -87,4 +87,4 @@ if __name__ == '__main__':
                     time.sleep(10)
         except SMTPServerDisconnected:
             time.sleep(10)
-            log.warning('Connection unexpectedly closed retry')
+            log.warning('send email unexpectedly closed retry')
