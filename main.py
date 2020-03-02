@@ -31,7 +31,7 @@ def post_auth_user(u, p):
 if __name__ == '__main__':
     rand_time = random.randint(10, 20)
     log.warning('RANDOM WAIT {}'.format(rand_time))
-    # time.sleep(rand_time)
+    time.sleep(rand_time)
     log.warning('CONNECT EMAIL SERVER')
     while True:
         try:
